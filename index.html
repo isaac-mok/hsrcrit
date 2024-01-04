@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSR Crit</title>
+
+    <style>
+        div {
+            margin-bottom: 0.5rem;
+        }
+        button {
+            padding: 0.5rem 1rem;
+        }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+        <div>
+            <label for="cr">Crit rate:</label>
+            <input type="text" id="cr">
+        </div>
+        <div>
+            <label for="cd">Crit damage:</label>
+            <input type="text" id="cd">
+        </div>
+        <button>Calculate</button>
+    </form>
+    <p>Average damage: <span id="result"></span></p>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const cr = document.getElementById('cr').value
+            const cd = document.getElementById('cd').value
+
+            const result = ((cr / 100) * ((cd / 100) + 1)) + (1 - (cr / 100))
+
+            document.getElementById('result').innerHTML = result
+        })
+    </script>
+  </body>
+</html>
