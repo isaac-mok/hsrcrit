@@ -18,11 +18,11 @@
     <form id="form">
         <div>
             <label for="cr">Crit rate:</label>
-            <input type="text" id="cr">
+            <input type="number" id="cr" step="0.01" max="100.00">
         </div>
         <div>
             <label for="cd">Crit damage:</label>
-            <input type="text" id="cd">
+            <input type="number" id="cd" step="0.01">
         </div>
         <button>Calculate</button>
     </form>
@@ -32,12 +32,19 @@
         document.getElementById('form').addEventListener('submit', e => {
             e.preventDefault();
 
-            const cr = document.getElementById('cr').value
-            const cd = document.getElementById('cd').value
+            let cr = parseFloat(document.getElementById('cr').value)
+            const cd = parseFloat(document.getElementById('cd').value)
 
-            const result = ((cr / 100) * ((cd / 100) + 1)) + (1 - (cr / 100))
+            if (isNaN(cr) || isNaN(cd)) {
+                document.getElementById('result').innerHTML = 'Invalid number'
+            } else if (cr < 0 || cd < 0) {
+                document.getElementById('result').innerHTML = 'Negative??? How do you even--'
+            } else {
+                cr = Math.min(cr, 100)
+                const result = ((cr / 100) * ((cd / 100) + 1)) + (1 - (cr / 100))
 
-            document.getElementById('result').innerHTML = result
+                document.getElementById('result').innerHTML = result
+            }
         })
     </script>
   </body>
